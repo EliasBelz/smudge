@@ -1,4 +1,4 @@
-document.body.style.border = "5px solid blue"
+// document.body.style.border = "5px solid blue"
 
 navigator.__defineGetter__("userAgent", function () {
     return 'test'
