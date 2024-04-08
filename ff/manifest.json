@@ -7,7 +7,8 @@
         {
             "matches": [
                 "*://*.mozilla.org/*",
-                "*://*.amiunique.org/*"
+                "*://*.amiunique.org/*",
+                "<all_urls>"
             ],
             "js": [
                 "main.js"
