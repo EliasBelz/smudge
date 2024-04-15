@@ -1,18 +1,14 @@
 {
     "manifest_version": 2,
-    "name": "Borderify",
+    "name": "Smudge",
     "version": "1.0",
-    "description": "Adds a red border to all webpages matching mozilla.org.",
-    "content_scripts": [
-        {
-            "matches": [
-                "*://*.mozilla.org/*",
-                "*://*.amiunique.org/*",
-                "<all_urls>"
-            ],
-            "js": [
-                "main.js"
-            ]
-        }
-    ]
+    "description": "Smudges your Fingerprint!",
+    "permissions": [
+        "<all_urls>",
+        "webRequest",
+        "webRequestBlocking"
+    ],
+    "background": {
+        "scripts": ["main.js"]
+    }
 }
