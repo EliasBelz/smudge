@@ -9,6 +9,17 @@
         "webRequestBlocking"
     ],
     "background": {
-        "scripts": ["main.js"]
-    }
+        "scripts": ["back.js"]
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "main.js"
+            ]
+        }
+    ]
+
 }
