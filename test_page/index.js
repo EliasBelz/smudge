@@ -4,8 +4,10 @@
 
    window.addEventListener("load", init);
 
+   console.log(`client ${navigator.userAgent}`)
 
    function init() {
+    console.log(`client in inti ${navigator.userAgent}`)
     qs("button").addEventListener("click", async () => {await fingerPrint()});
     id("uab").addEventListener("click", userAgentAlert);
     id("cua").addEventListener("click", changeUserAgent);
@@ -18,6 +20,8 @@
     const nav = window.navigator;
     const p = qs("p");
     p.textContent = "";
+    p.textContent += `platform: ${nav.platform}\n`;
+    console.log(`client platform ${navigator.platform}`)
     p.textContent += `Bluetooth: ${nav.bluetooth}\n`; // await nav.bluetooth.getDevices()
     p.textContent += `connection: ${nav.connection}\n`;
     p.textContent += `contacts: ${nav.contacts}\n`;
@@ -66,14 +70,11 @@
     p.textContent += `do not track: ${nav.doNotTrack}\n`;
     p.textContent += `mime types: ${nav.mimeTypes}\n`;
     p.textContent += `os cpu: ${nav.oscpu}\n`;
-    p.textContent += `platform: ${nav.platform}\n`;
     p.textContent += `plugins: ${nav.plugins}\n`;
     p.textContent += `product: ${nav.product}\n`;
     p.textContent += `product sub: ${nav.productSub}\n`;
     p.textContent += `vendor: ${nav.vendor}\n`;
     p.textContent += `vendor sub: ${nav.vendorSub}\n`;
-    const platform = nav.platform;
-    p.textContent += `Platform: ${platform}\n`;
    }
 
    function userAgentAlert() {
