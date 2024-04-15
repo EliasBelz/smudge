@@ -9,7 +9,7 @@
         "webRequestBlocking"
     ],
     "background": {
-        "scripts": ["back.js"]
+        "scripts": ["scripts/headers.service.js"]
     },
     "content_scripts": [
         {
@@ -17,12 +17,14 @@
                 "<all_urls>"
             ],
             "js": [
-                "main.js"
+                "scripts/navigator.service.js",
+                "scripts/canvas.service.js",
+                "scripts/navigator.service.js"
             ],
             "run_at": "document_start"
         }
     ],
     "browser_action": {
-        "default_popup": "index.html"
+        "default_popup": "popup/index.html"
     }
 }

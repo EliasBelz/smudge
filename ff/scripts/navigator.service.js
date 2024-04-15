@@ -1,5 +1,3 @@
-// seems to not work on amiunique
-
 let script = document.createElement('script');
 script.textContent = `
     Object.defineProperty(navigator, 'platform', {
@@ -17,4 +15,3 @@ script.remove();
 
 console.log(`extension UA ${navigator.userAgent}`)
 console.log(`extension platform ${navigator.platform}`)
-// console.log(document.querySelector("html"));
