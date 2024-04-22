@@ -4,11 +4,11 @@ A Firefox extention called Smudge to keep you secure and anonymous on the intern
 Built by Elias Belzberg, Kathryn Koehler, Will Safranek, Lucas Youngers
 
 # Installation Guide
-- Navigate to about:debugging in Firefox.
-- Click "This Firefox" in the sidebar.
-- Click "Load Temporary Add-on...".
-- Navigate to the manifest.json inside of the Firefox directory.
-- Click "Open".
+- Navigate to about:debugging#/runtime/this-firefox in Firefox (Paste “about:debugging#/runtime/this-firefox” into the navigation bar).
+- Select "Load Temporary Add-on...".
+- Navigate to the manifest.json inside the Extension directory in this repo.
+- Select "Open".
+- Now you’re browsing with Smudge ;)
 - When you wish to reload the extension, pull the most recent version or save your changes, then click "Reload" on the extension menu.
 
 # Workflow
