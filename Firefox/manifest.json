@@ -1,0 +1,31 @@
+{
+    "manifest_version": 2,
+    "name": "Smudge",
+    "version": "1.0",
+    "description": "Smudges your Fingerprint!",
+    "permissions": [
+        "<all_urls>",
+        "webRequest",
+        "webRequestBlocking"
+    ],
+    "background": {
+        "scripts": ["scripts/headers.service.js"],
+        "persistent": true
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "scripts/navigator.service.js",
+                "scripts/canvas.service.js",
+                "scripts/webgl.service.js"
+            ],
+            "run_at": "document_start"
+        }
+    ],
+    "browser_action": {
+        "default_popup": "popup/index.html"
+    }
+}
