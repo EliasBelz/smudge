@@ -18,6 +18,7 @@
                 "<all_urls>"
             ],
             "js": [
+                "scripts/main.js",
                 "scripts/navigator.service.js",
                 "scripts/canvas.service.js",
                 "scripts/webgl.service.js"
