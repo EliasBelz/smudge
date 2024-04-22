@@ -1,5 +1,8 @@
 {
-  "userAgent" : ["fake header"],
+  "userAgent" : [
+    "fake header",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.3"
+  ],
   "platform" : [
     "Linux",
     "null",
