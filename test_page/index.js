@@ -21,7 +21,7 @@
     const p = qs("p");
     p.textContent = "";
     p.textContent += `platform: ${nav.platform}\n`;
-    console.log(`client platform ${navigator.platform}`)
+    p.textContent += `user agent: ${nav.userAgent}\n`;
     p.textContent += `Bluetooth: ${nav.bluetooth}\n`; // await nav.bluetooth.getDevices()
     p.textContent += `connection: ${nav.connection}\n`;
     p.textContent += `contacts: ${nav.contacts}\n`;
@@ -53,7 +53,6 @@
     p.textContent += `storage: ${nav.storage}\n`;
     p.textContent += `usb: ${nav.usb}\n`;
     p.textContent += `user activation: ${nav.userActivation}\n`;
-    p.textContent += `user agent: ${nav.userAgent}\n`;
     p.textContent += `user agent data: ${nav.userAgentData}\n`;
     p.textContent += `virtual keyboard: ${nav.virtualKeyboard}\n`;
     p.textContent += `wake lock: ${nav.wakeLock}\n`;

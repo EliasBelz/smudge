@@ -51,6 +51,11 @@
           select.value = currentSetting;
         }
 
+        if (!currentSetting) {
+          select.value = options[0];
+          await settingsService.updateSettings(key, options[0]);
+        }
+
       let label = document.createElement('label');
       label.textContent = `${key}: `;
       label.htmlFor = key;

@@ -65,6 +65,5 @@
     "WebTV OS",
     "X11",
     "TempleOS"
-],
-  "timezone": ["UTC-7:00", "UTC-8:00", "UTC-9:00"]
+]
 }
