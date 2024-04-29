@@ -10,7 +10,7 @@ Built by Elias Belzberg, Kathryn Koehler, Will Safranek, Lucas Youngers
 - Select "Load Temporary Add-on...".
 - Navigate to the manifest.json inside the Extension directory in this repo.
 - Select "Open".
-- Now you’re browsing with Smudge ;)
+- Now you’re browsing with Smudge
 - When you wish to reload the extension, pull the most recent version or save your changes, then click "Reload" on the extension menu.
 
 # Workflow
