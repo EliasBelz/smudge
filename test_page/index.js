@@ -10,9 +10,6 @@
     console.log(`client in inti ${navigator.userAgent}`)
     qs("button").addEventListener("click", async () => {await fingerPrint()});
     id("uab").addEventListener("click", userAgentAlert);
-    id("cua").addEventListener("click", changeUserAgent);
-    //  id("oscpu").addEventListener("click", oscpu);
-    //  id("gpu").addEventListener("click", gpu);
    }
 
    async function fingerPrint() {
