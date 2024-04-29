@@ -1,0 +1,8 @@
+body {
+  background-color: rgb(201, 155, 245);
+}
+
+#settings {
+  overflow-y: scroll;
+  height: 200px;
+}

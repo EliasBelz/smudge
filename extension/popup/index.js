@@ -11,22 +11,59 @@
         "enabled": true
       });
     }
+
     qs('#enabled').checked = settings.enabled;
     qs('#enabled').addEventListener('change', async function () {
-      console.log('enabled', this.checked);
       await settingsService.setSettings({
         "enabled": this.checked
       });
     });
+
+    await loadJson();
   }
 
 
 
 
+  async function loadJson() {
+    const jsonFileUrl = browser.extension.getURL('assets/navigator.json');
+    const res = await fetch(jsonFileUrl);
+    const data = await res.json();
+    for (let key of Object.keys(data)) {
+      let options = data[key];
+      let select = document.createElement('select');
+      select.id = key;
+      select.addEventListener('change', async function () {
+        console.log(`Updated ${key} to ${this.value}`);
+        await settingsService.updateSettings(key, this.value);
+      });
 
+      for (let option of options) {
+        let opt = document.createElement('option');
+        opt.value = option;
+        opt.textContent = option;
+        select.appendChild(opt);
+      }
 
+        let currentSetting = (await settingsService.getSettings())[key];
 
-  function qs (selector) {
+        if (currentSetting && options.includes(currentSetting)) {
+          select.value = currentSetting;
+        }
+
+      let label = document.createElement('label');
+      label.textContent = `${key}: `;
+      label.htmlFor = key;
+
+      let div = document.createElement('div');
+      div.appendChild(label);
+      div.appendChild(select);
+
+      document.querySelector('#settings').appendChild(div);
+    }
+  }
+
+  function qs(selector) {
     return document.querySelector(selector);
   }
 
