@@ -30,5 +30,8 @@
     ],
     "browser_action": {
         "default_popup": "popup/index.html"
+    },
+    "icons": {
+        "64": "icons/logo6.png"
     }
 }
