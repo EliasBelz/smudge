@@ -9,13 +9,13 @@ script.textContent = `
     Object.defineProperty(navigator, 'platform', {
         get: function () {
             window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'platform', eventValue: '${data.platform[40]}' } }));
-            return '${data.platform[40]}';
+            return '${data.platform[39]}';
         }
     });
 
     Object.defineProperty(navigator, 'userAgent', {
         get: function () {
-            window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'userAgent', eventValue: '${data.platform[40]}' } }));
+            window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'userAgent', eventValue: 'fake userAgent' } }));
             return 'fake userAgent';
         }
     });

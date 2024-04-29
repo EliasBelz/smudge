@@ -6,11 +6,11 @@
     "permissions": [
         "<all_urls>",
         "webRequest",
-        "webRequestBlocking"
+        "webRequestBlocking",
+        "storage"
     ],
     "background": {
-        "scripts": ["scripts/headers.service.js",
-                    "scripts/intake.service.js"],
+        "scripts": ["scripts/headers.service.js"],
         "persistent": true
     },
     "content_scripts": [
