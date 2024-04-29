@@ -10,7 +10,8 @@
         "storage"
     ],
     "background": {
-        "scripts": ["scripts/headers.service.js"],
+        "scripts": ["scripts/headers.service.js",
+                    "scripts/settings.service.js"],
         "persistent": true
     },
     "content_scripts": [

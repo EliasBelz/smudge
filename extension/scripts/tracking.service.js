@@ -2,8 +2,6 @@
 (function() {
 
   window.addEventListener("load" , function() {
-    console.log('Tracking Service loaded');
-    browser.storage.local.set({ 'wdwdsd': {test: "ttt"} });
     window.addEventListener('trackEvent', async function (e) {
       await trackEvent(e.detail.eventName, e.detail.eventValue);
     });
