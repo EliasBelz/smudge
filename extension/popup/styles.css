@@ -1,8 +1,40 @@
 body {
   background-color: rgb(201, 155, 245);
+  width: 400px;
 }
 
 #settings {
-  overflow-y: scroll;
+  //overflow-y: scroll;
   height: 200px;
+  overflow-x: hidden;
+  width: 80%;
 }
+
+body * {
+  font-family: "Open Sans", sans-serif;
+  text-align: left;
+}
+
+label {
+  padding: 5px;
+}
+
+div {
+  width: 80%;
+}
+
+div > * {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-left: 5%;
+}
+
+div > select {
+  width: auto;
+}
+
+select option {
+  max-width: 350px;
+}
+

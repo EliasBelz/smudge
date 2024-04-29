@@ -1,7 +1,9 @@
 {
   "userAgent" : [
-    "fake header",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.3"
+    "fake userAgent",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.3",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.3"
+
   ],
   "platform" : [
     "Linux",
@@ -19,7 +21,7 @@
     "Mac68K",
     "Pike v7.6 release 92",
     "Pike v7.8 release 517",
-    "BlackBerry)",
+    "BlackBerry",
     "FreeBSD",
     "FreeBSD i386",
     "FreeBSD amd64",
@@ -64,6 +66,5 @@
     "masking-agent",
     "WebTV OS",
     "X11",
-    "TempleOS"
-]
+    "TempleOS"]
 }

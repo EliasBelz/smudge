@@ -64,7 +64,7 @@
       div.appendChild(label);
       div.appendChild(select);
 
-      document.querySelector('#settings').appendChild(div);
+      document.querySelector('#dropdowns').appendChild(div);
     }
   }
 
