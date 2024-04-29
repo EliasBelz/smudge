@@ -1,4 +1,21 @@
-export async function TrackEvent(eventName, eventValue) {
+"use strict";
+(function() {
+
+  window.addEventListener("load" , function() {
+    console.log('Tracking Service loaded');
+    window.addEventListener('trackEvent', function (e) {
+      browser.runtime.sendMessage({
+        type: 'trackEvent',
+        eventName: e.detail.eventName,
+        eventValue: e.detail.eventValue
+      });
+    });
+  })
+
+})();
+export async function trackEvent(eventName, eventValue) {
+
+  console.log('TrackEvent', eventName, eventValue);
   let data = await browser.storage.local.get('eventTrackingData');
 
   if (!data.eventTrackingData) {

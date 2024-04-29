@@ -7,11 +7,17 @@ console.log(data)
 let script = document.createElement('script')
 script.textContent = `
     Object.defineProperty(navigator, 'platform', {
-        get: function () { return '${data.platform[40]}'; }
+        get: function () {
+            window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'platform', eventValue: '${data.platform[40]}' } }));
+            return '${data.platform[40]}';
+        }
     });
 
     Object.defineProperty(navigator, 'userAgent', {
-        get: function () { return 'fake userAgent'; }
+        get: function () {
+            window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'userAgent', eventValue: '${data.platform[40]}' } }));
+            return 'fake userAgent';
+        }
     });
     // Add more properties as needed
 `;
