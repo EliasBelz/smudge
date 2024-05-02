@@ -1,4 +1,5 @@
 class SettingsService {
+
   async getSettings() {
     let data = await browser.storage.local.get('settings');
     return data.settings;

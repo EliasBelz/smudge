@@ -1,15 +1,17 @@
 "use strict";
 (function() {
 
-  const settingsService = new SettingsService();
+  let settingsService;
 
   window.addEventListener('load', init);
   async function init () {
-    const settings = await settingsService.getSettings();
+    settingsService = new SettingsService();
+    let settings =  await settingsService.getSettings();
     if (!settings) {
       await settingsService.setSettings({
         "enabled": true
       });
+      settings =  await settingsService.getSettings();
     }
 
     qs('#enabled').checked = settings.enabled;
