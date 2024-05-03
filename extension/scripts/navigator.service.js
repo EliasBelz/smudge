@@ -2,8 +2,8 @@
   const jsonFileUrl = browser.extension.getURL('assets/navigator.json');
   const res = await fetch(jsonFileUrl);
   const data = await res.json();
-  let settings = (await browser.storage.local.get('settings')).settings;
-  if (settings.enabled) {
+  let settings = (await browser.storage.local.get('settings'))?.settings;
+  if (settings && settings?.enabled) {
     let script = document.createElement('script');
     let platform = (await browser.storage.local.get('settings'))?.settings?.platform;
     let userAgent = (await browser.storage.local.get('settings'))?.settings?.userAgent;

@@ -1,7 +1,9 @@
 // seems to work on amiunique
-chrome.webRequest.onBeforeSendHeaders.addListener(details => {
+chrome.webRequest.onBeforeSendHeaders.addListener(async (details) => {
+
+    let ua = (await browser.storage.local.get('settings'))?.settings?.userAgent;
     details.requestHeaders
         .filter(({ name }) => name === "User-Agent")
-        .forEach(header => header.value = navigator.userAgent);
+        .forEach(async (header) => header.value = ua);
     return { requestHeaders: details.requestHeaders };
 }, { urls: ["<all_urls>"] }, ["blocking", "requestHeaders"]);
