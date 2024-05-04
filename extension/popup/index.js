@@ -38,6 +38,7 @@
       select.addEventListener('change', async function () {
         console.log(`Updated ${key} to ${this.value}`);
         await settingsService.updateSettings(key, this.value);
+        browser.tabs.reload();
       });
 
       for (let option of options) {
