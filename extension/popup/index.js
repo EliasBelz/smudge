@@ -40,6 +40,10 @@
         await settingsService.updateSettings(key, this.value);
       });
 
+      if (navigator[key]) {
+        options = [navigator[key], ...options]
+      }
+
       for (let option of options) {
         let opt = document.createElement('option');
         opt.value = option;
