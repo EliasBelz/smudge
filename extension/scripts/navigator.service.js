@@ -1,3 +1,4 @@
+"use strict";
 (async function () {
   const jsonFileUrl = browser.extension.getURL('assets/navigator.json');
   const res = await fetch(jsonFileUrl);

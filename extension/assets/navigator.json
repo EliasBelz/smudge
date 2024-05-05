@@ -16,7 +16,7 @@
     "iPod Simulator",
     "iPad Simulator",
     "Macintosh",
-    "MacIntel",
+    "Mac Intel",
     "MacPPC",
     "Mac68K",
     "Pike v7.6 release 92",
@@ -66,5 +66,12 @@
     "masking-agent",
     "WebTV OS",
     "X11",
-    "TempleOS"]
+    "TempleOS"],
+    "browser" : [
+      "Chrome",
+      "Firefox",
+      "Opera",
+      "Microsoft Edge",
+      "Safari"
+    ]
 }
