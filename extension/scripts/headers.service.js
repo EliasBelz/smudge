@@ -2,10 +2,10 @@
 chrome.webRequest.onBeforeSendHeaders.addListener(
     async (details) => {
         const userAgent = (await browser.storage.local.get('settings'))?.settings?.userAgent;
-        const newRequestHeaders = details.requestHeaders
+        details.requestHeaders
             .filter(({ name }) => name === 'User-Agent')
-            .map(async header => header.value = userAgent);
-        return { requestHeaders: newRequestHeaders };
+            .forEach(header => header.value = userAgent);
+        return { requestHeaders: details.requestHeaders };
     },
     {
         urls: ["<all_urls>"]
