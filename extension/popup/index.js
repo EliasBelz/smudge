@@ -41,7 +41,7 @@
       });
 
       if (navigator[key]) {
-        options = [navigator[key], ...options]
+        options = ["Default: " + navigator[key], ...options]
       }
 
       for (let option of options) {
