@@ -18,6 +18,8 @@
         await loadCheckbox();
 
         await loadOptions();
+
+        loadCommitButton();
     });
 
     // Load and update on the popup the settings for the 'on' checkbox.
@@ -49,7 +51,6 @@
             selectEl.addEventListener('change', async function () {
                 console.log(`Updated ${key} to ${this.value}`);
                 await settingsService.updateSettings(key, this.value);
-                browser.tabs.reload();
             });
 
             if (navigator[key]) {
@@ -84,6 +85,13 @@
 
             document.querySelector('#dropdowns').appendChild(div);
         }
+    }
+
+    function loadCommitButton() {
+        const commitBtn = document.getElementById('commit');
+        commitBtn.addEventListener('click', function () {
+            browser.tabs.reload();
+        });
     }
 
 })();
