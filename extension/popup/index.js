@@ -41,7 +41,10 @@
       });
 
       if (navigator[key]) {
-        options = ["Default: " + navigator[key], ...options]
+        let opt = document.createElement('option');
+        opt.value = navigator[key];
+        opt.textContent = "Default: " + navigator[key];
+        select.appendChild(opt);
       }
 
       for (let option of options) {
