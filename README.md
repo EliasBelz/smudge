@@ -21,3 +21,18 @@ Please follow the workflow as outlined below, to minimize confusion and conflict
 2. Then, try to get approval and a once-over from at least one other developer before merging the branch into master, and deleting the branch.
 3. Please provide documentation and commit messages for any confusing or non-trivial code.
 4. If there are ever merge conflicts, please contact the dev who wrote the conflicting code before making potentially breaking changes.
+
+# Convention
+
+In effort to keep the repository clean and efficient, please try to adhere to these common best-practices. (Note that these mostly apply to Javascript.)
+
+- Please use JSdoc to comment your global variables, functions, and classes. This will give us typescript-style type checking through VScode intellisense, and is helpful when working with such a "unique" and "innovative" language such as javascript.
+- Try to leave one blank line between code blocks, such as functions.
+- Prefer async/await syntax over then/catch callback hell.
+- I give up, we can use semicolons :( please use them consistently to end every expression.
+- I'm standardizing our quotes to single quotes, let's try to use those since it seems to be the bulk of them so far. (Note that double quotes are acceptable if the message contains single quotes.)
+- Try to avoid lines over 80 characters long. This is not a hard line, but long lines can become unreadable.
+- Try to avoid functions over 30 lines long. Again, this can become unreadable.
+- Comment global variables, and try to minimize their use.
+- INDENT USING FOUR SPACES FOR THE LOVE OF GOD (respectfully).
+- Use const if possible, immutable code is easier to debug.
