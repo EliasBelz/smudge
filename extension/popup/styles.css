@@ -4,7 +4,7 @@ body {
 }
 
 #settings {
-  //overflow-y: scroll;
+  /* overflow-y: scroll; */
   height: 200px;
   overflow-x: hidden;
   width: 80%;
