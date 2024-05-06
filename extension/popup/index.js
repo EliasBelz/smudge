@@ -52,9 +52,9 @@
             });
 
             if (navigator[key]) {
-                let opt = document.createElement('option');
+                const opt = document.createElement('option');
                 opt.value = navigator[key];
-                opt.textContent = "Default: " + navigator[key];
+                opt.textContent = 'Default: ' + navigator[key];
                 selectEl.appendChild(opt);
             }
 
