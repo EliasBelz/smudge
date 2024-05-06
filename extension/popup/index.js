@@ -12,12 +12,14 @@
     // Load the saved settings, and check the box in the UI appropriately.
     // If there are no saved settings, save minimal base settings.
     // Then, load the options from json.
-    window.addEventListener('load', async function() {
+    window.addEventListener('load', async function () {
         settingsService = new SettingsService();
 
         await loadCheckbox();
 
         await loadOptions();
+
+        loadCommitButton();
     });
 
     // Load and update on the popup the settings for the 'on' checkbox.
@@ -83,6 +85,13 @@
 
             document.querySelector('#dropdowns').appendChild(div);
         }
+    }
+
+    function loadCommitButton() {
+        const commitBtn = document.getElementById('commit');
+        commitBtn.addEventListener('click', function () {
+            browser.tabs.reload();
+        });
     }
 
 })();
