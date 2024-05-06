@@ -4,19 +4,15 @@ body {
 }
 
 #settings {
-  /* overflow-y: scroll; */
   height: 200px;
   overflow-x: hidden;
   width: 80%;
+  padding: 0.5em;
 }
 
 body * {
   font-family: "Open Sans", sans-serif;
   text-align: left;
-}
-
-label {
-  padding: 5px;
 }
 
 div {
@@ -26,8 +22,6 @@ div {
 div > * {
   display: flex;
   flex-direction: column;
-  margin: auto;
-  margin-left: 5%;
 }
 
 div > select {
