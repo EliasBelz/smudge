@@ -10,8 +10,8 @@
         "storage"
     ],
     "background": {
-        "scripts": ["scripts/headers.service.js",
-                    "scripts/settings.service.js"],
+        "scripts": ["scripts/headers.service.js"
+                    ],
         "persistent": true
     },
     "content_scripts": [
@@ -23,7 +23,8 @@
                 "scripts/navigator.service.js",
                 "scripts/canvas.service.js",
                 "scripts/webgl.service.js",
-                "scripts/tracking.service.js"
+                "scripts/tracking.service.js",
+                "scripts/settings.service.js"
             ],
             "run_at": "document_start"
         }
