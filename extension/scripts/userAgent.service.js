@@ -1,6 +1,8 @@
-// User-Agent: Mozilla/5.0 (<system-information>) <platform> (<platform-details>) <extensions>
-"use strict";
-export async function makeUserAgent({platform, browser}) {
+
+/**
+ * Returns a accurate user agent string for a given platform and browser.
+ */
+export function getUserAgent({platform, browser}) {
   if (!browser || !platform) {
     return null;
   }
@@ -13,6 +15,7 @@ function makeUAString({platform, browser}) {
 }
 
 /**
+ * Returns the system information for a given platform.
  * Defaults to Linux x86_64
  * @param {string} param0
  * @returns

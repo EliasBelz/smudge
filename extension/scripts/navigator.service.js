@@ -11,7 +11,6 @@
             platform,
             userAgent
         } = settings;
-        console.log(`extension UA ${userAgent}`);
         script.textContent = `
             Object.defineProperty(navigator, 'platform', {
                 get: function () {
