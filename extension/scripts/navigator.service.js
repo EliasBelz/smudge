@@ -1,16 +1,16 @@
+"use strict";
 (async function () {
     const jsonFileUrl = browser.extension.getURL('assets/navigator.json');
     const res = await fetch(jsonFileUrl);
     const data = await res.json();
 
     const { settings } = (await browser.storage.local.get('settings'));
-    if (settings && settings?.enabled) {
+    if (settings?.enabled) {
         const script = document.createElement('script');
         const {
             platform,
             userAgent
         } = settings;
-
         script.textContent = `
             Object.defineProperty(navigator, 'platform', {
                 get: function () {
@@ -32,7 +32,4 @@
         (document.head || document.documentElement).appendChild(script);
         script.remove();
     }
-
-    console.log(`extension UA ${navigator.userAgent}`);
-    console.log(`extension platform ${navigator.platform}`);
 })();

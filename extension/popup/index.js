@@ -1,5 +1,5 @@
 'use strict';
-
+import { getUserAgent } from "../scripts/userAgent.service.js";
 (function () {
 
     /**
@@ -45,12 +45,17 @@
 
         for (let key of Object.keys(data)) {
             const options = data[key];
-
             const selectEl = document.createElement('select');
             selectEl.id = key;
+            // updates the settings when the dropdown is changed.
+            // if the platform or browser is changed, the user agent is updated.
             selectEl.addEventListener('change', async function () {
-                console.log(`Updated ${key} to ${this.value}`);
-                await settingsService.updateSettings(key, this.value);
+              await settingsService.updateSettings(key, this.value);
+              if (key === 'platform' || key === 'browser') {
+                  const { platform, browser } = await settingsService.getSettings();
+                  const userAgent = getUserAgent({ platform, browser });
+                  await settingsService.updateSettings('userAgent', userAgent);
+              }
             });
 
             if (navigator[key]) {
@@ -67,6 +72,7 @@
                 selectEl.appendChild(opt);
             }
 
+            // set the dropdown to the current setting or to the first option.
             const currentSetting = (await settingsService.getSettings())[key];
             if (currentSetting && options.includes(currentSetting)) {
                 selectEl.value = currentSetting;

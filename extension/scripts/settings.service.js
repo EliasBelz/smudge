@@ -40,8 +40,8 @@ class SettingsService {
 
     /**
      * Saves or updates a key-value pair in settings in local storage.
-     * @param {string} key 
-     * @param {Object} value 
+     * @param {string} key
+     * @param {Object} value
      */
     async updateSettings(key, value) {
         const { settings } = await browser.storage.local.get('settings');
