@@ -6,8 +6,6 @@
 // const moment = require('moment-timezone');
 
 export class TimeZoneService {
-  timeZones;
-
 
   getTimeZones() {
     return  [

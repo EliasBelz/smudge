@@ -102,15 +102,19 @@ import { TimeZoneService } from "../scripts/timeZone.service.js";
         const selectEl = document.createElement('select');
         selectEl.id = 'timezone';
         selectEl.addEventListener('change', async function () {
-            await settingsService.updateSettings('timezone', this.value);
+            await settingsService.updateSettings('timezoneOffset', this.value);
         });
+
+        // Set create user default
         const opt = document.createElement('option');
         const userOffset = new Date().getTimezoneOffset();
         opt.value = userOffset;
         opt.textContent = 'Default: ' + Intl.DateTimeFormat().resolvedOptions().timeZone;
         selectEl.appendChild(opt);
-        if (!(await settingsService.getSettings()).timezone) {
-            await settingsService.updateSettings('timezone', userOffset);
+
+        // If there isn't a timezoneOffset saved, set it to the user's default.
+        if (!(await settingsService.getSettings())['timezoneOffset']) {
+            await settingsService.updateSettings('timezoneOffset', userOffset);
         }
 
         for (let timeZone of timeZones) {
@@ -120,13 +124,13 @@ import { TimeZoneService } from "../scripts/timeZone.service.js";
             selectEl.appendChild(opt);
         }
 
-        const currentSetting = (await settingsService.getSettings())['timezone'];
-            if (currentSetting && timeZones.map(tz => tz.offset).includes(currentSetting)) {
-                selectEl.value = currentSetting;
-            } else {
-                selectEl.value = userVal;
-                await settingsService.updateSettings(key, userVal);
-            }
+        const currentSetting = (await settingsService.getSettings())['timezoneOffset'];
+        if (currentSetting && Array.from(selectEl.options).filter(option => option.value === currentSetting).length > 0) {
+            selectEl.value = currentSetting;
+        } else {
+            selectEl.value = userOffset;
+            await settingsService.updateSettings('timezoneOffset', userOffset);
+        }
 
         const label = document.createElement('label');
         label.textContent = 'Timezone: ';

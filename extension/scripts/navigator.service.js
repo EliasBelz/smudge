@@ -9,26 +9,32 @@
         const script = document.createElement('script');
         const {
             platform,
-            userAgent
+            userAgent,
+            timezoneOffset
         } = settings;
+
+        const offsetHours = timezoneOffset / -60;
+        const utcString = `UTC${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
         script.textContent = `
             Object.defineProperty(navigator, 'platform', {
                 get: function () {
-                    window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'platform', eventValue: '${data.platform[40]}' } }));
+                    window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'platform', eventValue: '${data.platform}' } }));
                     return '${platform}';
                 }
             });
 
             Object.defineProperty(navigator, 'userAgent', {
                 get: function () {
-                    window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'userAgent', eventValue: 'fake userAgent' } }));
+                    window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'userAgent', eventValue: '${userAgent}' } }));
                     return '${userAgent}';
                 }
             });
 
             Date.prototype.getTimezoneOffset = function() {
-                window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'timezoneOffset', eventValue: 'fake timezone offset' } }));
-                return 480;
+
+
+                window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'timezoneOffset', eventValue: '${timezoneOffset}, ${utcString}' } }));
+                return ${timezoneOffset};
             }
             // Add more properties as needed
         `;
