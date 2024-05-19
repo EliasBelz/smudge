@@ -51,6 +51,6 @@
             // Add more properties as needed
         `;
         (document.head || document.documentElement).appendChild(script);
-        // script.remove();
+        script.remove();
     }
 })();
