@@ -17,7 +17,6 @@
         const offsetHours = timezoneOffset / -60;
         const utcString = `UTC${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
         script.textContent = `
-            console.log('navigator.service.js');
             Object.defineProperty(navigator, 'platform', {
                 get: function () {
                     window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'platform', eventValue: '${data.platform}' } }));
