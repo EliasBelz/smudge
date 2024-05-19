@@ -1,6 +1,5 @@
 'use strict';
 import { getUserAgent } from "../scripts/userAgent.service.js";
-import { TimeZoneService } from "../scripts/timeZone.service.js";
 (function () {
 
     /**
@@ -97,8 +96,9 @@ import { TimeZoneService } from "../scripts/timeZone.service.js";
     }
 
     async function loadTimezoneDropdown() {
-        let timeZoneService = new TimeZoneService();
-        let timeZones = timeZoneService.getTimeZones();
+        const jsonFileUrl = browser.extension.getURL('assets/timezones.json');
+        const res = await fetch(jsonFileUrl);
+        const timeZones = await res.json();
         const selectEl = document.createElement('select');
         selectEl.id = 'timezone';
         selectEl.addEventListener('change', async function () {
