@@ -19,6 +19,8 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
 
         await loadOptions();
 
+        await loadTimezoneDropdown();
+
         loadCommitButton();
     });
 
@@ -57,10 +59,10 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
                   await settingsService.updateSettings('userAgent', userAgent);
               }
             });
-
+            const userVal = navigator[key];
             if (navigator[key]) {
                 const opt = document.createElement('option');
-                opt.value = navigator[key];
+                opt.value = userVal;
                 opt.textContent = 'Default: ' + navigator[key];
                 selectEl.appendChild(opt);
             }
@@ -72,13 +74,13 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
                 selectEl.appendChild(opt);
             }
 
-            // set the dropdown to the current setting or to the first option.
+            // set the dropdown to the current setting or to the users default.
             const currentSetting = (await settingsService.getSettings())[key];
             if (currentSetting && options.includes(currentSetting)) {
                 selectEl.value = currentSetting;
             } else {
-                selectEl.value = options[0];
-                await settingsService.updateSettings(key, options[0]);
+                selectEl.value = userVal;
+                await settingsService.updateSettings(key, userVal);
             }
 
             const label = document.createElement('label');
@@ -92,6 +94,57 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
             document.querySelector('#dropdowns').appendChild(div);
         }
     }
+
+    async function loadTimezoneDropdown() {
+        const jsonFileUrl = browser.extension.getURL('assets/timezones.json');
+        const res = await fetch(jsonFileUrl);
+        const timeZones = await res.json();
+        const selectEl = document.createElement('select');
+        selectEl.id = 'timezone';
+        selectEl.addEventListener('change', async function () {
+            await settingsService.updateSettings('timezoneOffset', this.value);
+            await settingsService.updateSettings('timezone', this.options[this.selectedIndex].text);
+        });
+
+        // Set create user default
+        const opt = document.createElement('option');
+        const userOffset = new Date().getTimezoneOffset();
+        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        opt.value = userOffset;
+        opt.textContent = 'Default: ' + userTimeZone;
+        selectEl.appendChild(opt);
+
+        // If there isn't a timezoneOffset saved, set it to the user's default.
+        if (!(await settingsService.getSettings())['timezoneOffset']) {
+            await settingsService.updateSettings('timezoneOffset', userOffset);
+            await settingsService.updateSettings('timezone', userTimeZone);
+        }
+
+        for (let timeZone of timeZones) {
+            const opt = document.createElement('option');
+            opt.value = timeZone.offset;
+            opt.textContent = timeZone.timeZone;
+            selectEl.appendChild(opt);
+        }
+
+        const currentSetting = (await settingsService.getSettings())['timezoneOffset'];
+        if (currentSetting && Array.from(selectEl.options).filter(option => option.value === currentSetting).length > 0) {
+            selectEl.value = currentSetting;
+        } else {
+            selectEl.value = userOffset;
+            await settingsService.updateSettings('timezoneOffset', userOffset);
+            await settingsService.updateSettings('timezone', userTimeZone);
+        }
+
+        const label = document.createElement('label');
+        label.textContent = 'Timezone: ';
+        label.htmlFor = 'timezone';
+        const div = document.createElement('div');
+        div.appendChild(label);
+        div.appendChild(selectEl);
+        document.querySelector('#dropdowns').appendChild(div);
+    }
+
 
     function loadCommitButton() {
         const commitBtn = document.getElementById('commit');
