@@ -10,12 +10,14 @@
         const {
             platform,
             userAgent,
-            timezoneOffset
+            timezoneOffset,
+            timezone
         } = settings;
 
         const offsetHours = timezoneOffset / -60;
         const utcString = `UTC${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
         script.textContent = `
+            console.log('navigator.service.js');
             Object.defineProperty(navigator, 'platform', {
                 get: function () {
                     window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'platform', eventValue: '${data.platform}' } }));
@@ -31,15 +33,25 @@
             });
 
             Date.prototype.getTimezoneOffset = function() {
-
-
                 window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'timezoneOffset', eventValue: '${timezoneOffset}, ${utcString}' } }));
                 return ${timezoneOffset};
             }
+
+            const originalResolvedOptions = Intl.DateTimeFormat.prototype.resolvedOptions;
+            Intl.DateTimeFormat.prototype.resolvedOptions = function() {
+                const options = originalResolvedOptions.call(this);
+                Object.defineProperty(options, 'timeZone', {
+                    get: function () {
+                        window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'timezone', eventValue: '${timezone}' } }));
+                        return '${timezone}';
+                    }
+                });
+                return options;
+            };
+
             // Add more properties as needed
         `;
-
         (document.head || document.documentElement).appendChild(script);
-        script.remove();
+        // script.remove();
     }
 })();

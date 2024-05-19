@@ -103,18 +103,21 @@ import { TimeZoneService } from "../scripts/timeZone.service.js";
         selectEl.id = 'timezone';
         selectEl.addEventListener('change', async function () {
             await settingsService.updateSettings('timezoneOffset', this.value);
+            await settingsService.updateSettings('timezone', this.options[this.selectedIndex].text);
         });
 
         // Set create user default
         const opt = document.createElement('option');
         const userOffset = new Date().getTimezoneOffset();
+        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
         opt.value = userOffset;
-        opt.textContent = 'Default: ' + Intl.DateTimeFormat().resolvedOptions().timeZone;
+        opt.textContent = 'Default: ' + userTimeZone;
         selectEl.appendChild(opt);
 
         // If there isn't a timezoneOffset saved, set it to the user's default.
         if (!(await settingsService.getSettings())['timezoneOffset']) {
             await settingsService.updateSettings('timezoneOffset', userOffset);
+            await settingsService.updateSettings('timezone', userTimeZone);
         }
 
         for (let timeZone of timeZones) {
@@ -130,6 +133,7 @@ import { TimeZoneService } from "../scripts/timeZone.service.js";
         } else {
             selectEl.value = userOffset;
             await settingsService.updateSettings('timezoneOffset', userOffset);
+            await settingsService.updateSettings('timezone', userTimeZone);
         }
 
         const label = document.createElement('label');

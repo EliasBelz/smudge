@@ -1,12 +1,10 @@
-/**
- * Timezone data from https://gist.github.com/themeteorchef/780ce5d72e17ba887591
- *
- */
-
 // const moment = require('moment-timezone');
 
 export class TimeZoneService {
 
+  /**
+   * Gets a list of timezones with offsets.
+   */
   getTimeZones() {
     return  [
       { timeZone: 'Etc/GMT+12', offset: -720 },
