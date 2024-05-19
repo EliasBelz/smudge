@@ -26,6 +26,10 @@
                 }
             });
 
+            Date.prototype.getTimezoneOffset = function() {
+                window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'timezoneOffset', eventValue: 'fake timezone offset' } }));
+                return 480;
+            }
             // Add more properties as needed
         `;
 

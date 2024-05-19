@@ -1,5 +1,6 @@
 'use strict';
 import { getUserAgent } from "../scripts/userAgent.service.js";
+import { TimeZoneService } from "../scripts/timeZone.service.js";
 (function () {
 
     /**
@@ -18,6 +19,8 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
         await loadCheckbox();
 
         await loadOptions();
+
+        await loadTimezoneDropdown();
 
         loadCommitButton();
     });
@@ -57,10 +60,10 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
                   await settingsService.updateSettings('userAgent', userAgent);
               }
             });
-
+            const userVal = navigator[key];
             if (navigator[key]) {
                 const opt = document.createElement('option');
-                opt.value = navigator[key];
+                opt.value = userVal;
                 opt.textContent = 'Default: ' + navigator[key];
                 selectEl.appendChild(opt);
             }
@@ -72,13 +75,13 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
                 selectEl.appendChild(opt);
             }
 
-            // set the dropdown to the current setting or to the first option.
+            // set the dropdown to the current setting or to the users default.
             const currentSetting = (await settingsService.getSettings())[key];
             if (currentSetting && options.includes(currentSetting)) {
                 selectEl.value = currentSetting;
             } else {
-                selectEl.value = options[0];
-                await settingsService.updateSettings(key, options[0]);
+                selectEl.value = userVal;
+                await settingsService.updateSettings(key, userVal);
             }
 
             const label = document.createElement('label');
@@ -92,6 +95,48 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
             document.querySelector('#dropdowns').appendChild(div);
         }
     }
+
+    async function loadTimezoneDropdown() {
+        let timeZoneService = new TimeZoneService();
+        let timeZones = timeZoneService.getTimeZones();
+        const selectEl = document.createElement('select');
+        selectEl.id = 'timezone';
+        selectEl.addEventListener('change', async function () {
+            await settingsService.updateSettings('timezone', this.value);
+        });
+        const opt = document.createElement('option');
+        const userOffset = new Date().getTimezoneOffset();
+        opt.value = userOffset;
+        opt.textContent = 'Default: ' + Intl.DateTimeFormat().resolvedOptions().timeZone;
+        selectEl.appendChild(opt);
+        if (!(await settingsService.getSettings()).timezone) {
+            await settingsService.updateSettings('timezone', userOffset);
+        }
+
+        for (let timeZone of timeZones) {
+            const opt = document.createElement('option');
+            opt.value = timeZone.offset;
+            opt.textContent = timeZone.timeZone;
+            selectEl.appendChild(opt);
+        }
+
+        const currentSetting = (await settingsService.getSettings())['timezone'];
+            if (currentSetting && timeZones.map(tz => tz.offset).includes(currentSetting)) {
+                selectEl.value = currentSetting;
+            } else {
+                selectEl.value = userVal;
+                await settingsService.updateSettings(key, userVal);
+            }
+
+        const label = document.createElement('label');
+        label.textContent = 'Timezone: ';
+        label.htmlFor = 'timezone';
+        const div = document.createElement('div');
+        div.appendChild(label);
+        div.appendChild(selectEl);
+        document.querySelector('#dropdowns').appendChild(div);
+    }
+
 
     function loadCommitButton() {
         const commitBtn = document.getElementById('commit');
