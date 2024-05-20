@@ -145,6 +145,34 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
         document.querySelector('#dropdowns').appendChild(div);
     }
 
+    async function loadBlacklistButton() {
+        const blacklistBtn = document.getElementById('blacklist');
+        let {blacklist} = await settingsService.getSettings();
+        if (!blacklist) {
+            blacklist = [];
+            await settingsService.updateSettings('blacklist', blacklist);
+        }
+
+        if (blacklist.some(url => url === window.location.href)) {
+            blacklistBtn.textContent = 'Stop Smudging This Site';
+        } else {
+            blacklistBtn.textContent = 'Smudge This Site';
+        }
+
+
+
+        blacklistBtn.addEventListener('click', async function () {
+            const url = document.getElementById('url').value;
+            const bl = Set(await settingsService.getSettings('blacklist'));
+            if (bl.has(url)) {
+                return;
+            }
+
+            blacklist.push(url);
+            settingsService.updateSettings('blacklist', blacklist);
+        });
+
+    }
 
     function loadCommitButton() {
         const commitBtn = document.getElementById('commit');
