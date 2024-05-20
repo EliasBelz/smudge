@@ -34,6 +34,6 @@
         "default_popup": "popup/index.html"
     },
     "icons": {
-        "64": "icons/logo6.png"
+        "64": "icons/smudge-logo.png"
     }
 }
