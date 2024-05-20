@@ -6,6 +6,6 @@ pages:
   - echo 'Deploy FAQ'
   artifacts:
     paths:
-    - /faq
+    - public
   only:
     - main
