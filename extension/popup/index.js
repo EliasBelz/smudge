@@ -93,7 +93,8 @@ import {getUserAgent} from "../scripts/userAgent.service.js";
             for (let option of options) {
                 const opt = document.createElement('option');
                 opt.value = option;
-                opt.textContent = option;
+                // Very gross way to handle the default value for Firefox. im sorry :(
+                opt.textContent = option === "Firefox" ? 'Default: ' + option : option;
                 selectEl.appendChild(opt);
             }
 
