@@ -1,5 +1,6 @@
 'use strict';
-import { getUserAgent } from "../scripts/userAgent.service.js";
+import {getUserAgent} from "../scripts/userAgent.service.js";
+
 (function () {
 
     /**
@@ -9,35 +10,56 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
      */
     let settingsService;
 
+    let blacklistService;
+
     // Load the saved settings, and check the box in the UI appropriately.
     // If there are no saved settings, save minimal base settings.
     // Then, load the options from json.
     window.addEventListener('load', async function () {
         settingsService = new SettingsService();
+        blacklistService = new BlacklistService();
 
-        await loadCheckbox();
+        await loadEnabledCheckbox();
+
+        await loadCanvasCheckbox();
 
         await loadOptions();
 
         await loadTimezoneDropdown();
 
+        await loadBlacklistCheckBox();
+
         loadCommitButton();
+
+        loadRandomButton();
     });
 
-    // Load and update on the popup the settings for the 'on' checkbox.
-    async function loadCheckbox() {
+    // Load and update on the popup the settings for the 'enabled' checkbox.
+    async function loadEnabledCheckbox() {
         const hasSettings = await settingsService.hasSettings();
         if (!hasSettings) {
-            await settingsService.setSettings({ enabled: true });
+            await settingsService.setSettings({ enabled: false });
         }
+
         const { enabled } = await settingsService.getSettings();
 
         const enabledEl = document.querySelector('#enabled');
         enabledEl.checked = enabled;
+
         enabledEl.addEventListener('change', async function () {
-            await settingsService.setSettings({ enabled: this.checked });
+            await settingsService.updateSettings('enabled', this.checked);
         });
     }
+
+    async function loadCanvasCheckbox() {
+        const { canvasDisabled } = await settingsService.getSettings();
+        const canvasDisabledEl = document.getElementById('canvasDisabled');
+        canvasDisabledEl.checked = canvasDisabled;
+        canvasDisabledEl.addEventListener('change', async function () {
+            await settingsService.updateSettings('canvasDisabled', this.checked);
+        });
+    }
+
 
     // Load and update on the popup the options dropdowns.
     async function loadOptions() {
@@ -60,10 +82,11 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
               }
             });
             const userVal = navigator[key];
+
             if (navigator[key]) {
                 const opt = document.createElement('option');
                 opt.value = userVal;
-                opt.textContent = 'Default: ' + navigator[key];
+                opt.textContent = 'Default: ' + userVal;
                 selectEl.appendChild(opt);
             }
 
@@ -103,7 +126,9 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
         selectEl.id = 'timezone';
         selectEl.addEventListener('change', async function () {
             await settingsService.updateSettings('timezoneOffset', this.value);
-            await settingsService.updateSettings('timezone', this.options[this.selectedIndex].text);
+            let removedDefault = (this.options[this.selectedIndex].textContent).split(':');
+            removedDefault = removedDefault[1] ? removedDefault[1] : removedDefault[0];
+            await settingsService.updateSettings('timezone', removedDefault.trim());
         });
 
         // Set create user default
@@ -145,12 +170,50 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
         document.querySelector('#dropdowns').appendChild(div);
     }
 
+    async function loadBlacklistCheckBox() {
+        const blacklistCb = document.getElementById('blacklist');
+
+        blacklistCb.checked = await blacklistService.isBlacklisted();
+
+        blacklistCb.addEventListener('click', async function () {
+            await blacklistService.toggleBlacklist();
+            blacklistCb.checked = await blacklistService.isBlacklisted();
+        });
+
+    }
+
 
     function loadCommitButton() {
         const commitBtn = document.getElementById('commit');
         commitBtn.addEventListener('click', function () {
             browser.tabs.reload();
         });
+    }
+
+    function loadRandomButton() {
+        const randomBtn = document.getElementById('randomize');
+        randomBtn.addEventListener('click', async function () {
+            const dropdowns = document.querySelectorAll('#dropdowns select');
+            for (let i = 0; i < dropdowns.length; i++) {
+                let selectEl = dropdowns[i];
+                const randomIndex = Math.floor(Math.random() * selectEl.options.length);
+                selectEl.selectedIndex = randomIndex;
+                let key = selectEl.id;
+                let option = selectEl.options[randomIndex];
+                if (key === 'timezone'){
+                    let removedDefault = (option.textContent).split(':');
+                    removedDefault = removedDefault[1] ? removedDefault[1] : removedDefault[0];
+                    await settingsService.updateSettings('timezone', removedDefault.trim());
+                    //await settingsService.updateSettings('timezone',option.textContent);
+                    await settingsService.updateSettings('timezoneOffset',option.value);
+                } else {
+                    await settingsService.updateSettings(key, option.value);
+                }
+
+            }
+
+        });
+
     }
 
 })();

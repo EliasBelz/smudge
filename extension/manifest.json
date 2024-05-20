@@ -7,7 +7,8 @@
         "<all_urls>",
         "webRequest",
         "webRequestBlocking",
-        "storage"
+        "storage",
+        "tabs"
     ],
     "background": {
         "scripts": ["scripts/headers.service.js",
@@ -23,7 +24,8 @@
                 "scripts/navigator.service.js",
                 "scripts/canvas.service.js",
                 "scripts/webgl.service.js",
-                "scripts/tracking.service.js"
+                "scripts/tracking.service.js",
+                "scripts/blacklist.service.js"
             ],
             "run_at": "document_start"
         }
@@ -32,6 +34,6 @@
         "default_popup": "popup/index.html"
     },
     "icons": {
-        "64": "icons/logo6.png"
+        "64": "icons/smudge-logo.png"
     }
 }
