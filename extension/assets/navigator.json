@@ -14,8 +14,8 @@
     "TempleOS"],
 
     "browser" : [
-      "Chrome",
       "Firefox",
+      "Chrome",
       "Opera",
       "Microsoft Edge",
       "Safari"
