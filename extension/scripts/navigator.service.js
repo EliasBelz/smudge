@@ -5,7 +5,9 @@
     const data = await res.json();
 
     const { settings } = (await browser.storage.local.get('settings'));
-    if (settings?.enabled) {
+    const isBlackListed = (await browser.storage.local.get('blacklist'))?.blacklist?.includes(await getHostName());
+
+    if (settings?.enabled && !isBlackListed) {
         const script = document.createElement('script');
         const {
             platform,
@@ -65,5 +67,27 @@
 
         (document.head || document.documentElement).appendChild(script);
         script.remove();
+    }
+
+     /**
+     * Gets the host name of the currently active tab
+     */
+    async function getHostName() {
+        try {
+        const url = (await browser.tabs.query({currentWindow: true, active: true}))[0].url;
+        let j = url.indexOf("://");
+        let host = "";
+        for (let i = j + 3; i < url.length; i++) {
+            if (url.charAt(i) != '/') {
+                host = host + "" + url.charAt(i);
+            } else {
+                break;
+            }
+        }
+            return host;
+        } catch (error) {
+            console.log('error', error);
+            return null
+        }
     }
 })();
