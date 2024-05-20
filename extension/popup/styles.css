@@ -1,27 +1,33 @@
 body {
-  background-color: rgb(201, 155, 245);
-  width: 400px;
+  font-family: "Open Sans", sans-serif;
+  background-color: #17141d;
+  color: white;
+  width: 90%;
 }
 
 #settings {
-  height: 200px;
   overflow-x: hidden;
-  width: 80%;
+  width: 100%;
   padding: 0.5em;
 }
 
-body * {
-  font-family: "Open Sans", sans-serif;
+body {
   text-align: left;
+}
+
+h1 {
+  padding: 0.5rem;
 }
 
 div {
   width: 80%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 1em;
 }
 
-div > * {
-  display: flex;
-  flex-direction: column;
+div > {
+  padding: 5px;
 }
 
 div > select {
@@ -32,6 +38,20 @@ select option {
   max-width: 350px;
 }
 
-#checkboxes > div {
-  display: flex;
+button {
+  margin-top: 1em;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #201c29;
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: linear-gradient(90deg,#201c29,#201c29 1px,#17141d 0,#17141d);
 }
