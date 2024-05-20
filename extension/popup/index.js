@@ -17,6 +17,8 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
 
         await loadCheckbox();
 
+        await loadCanvasCheckbox();
+
         await loadOptions();
 
         await loadTimezoneDropdown();
@@ -38,6 +40,16 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
             await settingsService.setSettings({ enabled: this.checked });
         });
     }
+
+    async function loadCanvasCheckbox() {
+        const { canvasDisabled } = await settingsService.getSettings();
+        const canvasDisabledEl = document.getElementById('canvasDisabled');
+        canvasDisabledEl.checked = canvasDisabled;
+        canvasDisabledEl.addEventListener('change', async function () {
+            await settingsService.updateSettings('canvasDisabled', this.checked);
+        });
+    }
+
 
     // Load and update on the popup the options dropdowns.
     async function loadOptions() {

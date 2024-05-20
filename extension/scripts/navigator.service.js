@@ -16,7 +16,10 @@
 
         const offsetHours = timezoneOffset / -60;
         const utcString = `UTC${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
-        script.textContent = `
+
+        let scriptContent = '';
+
+        scriptContent += `
             Object.defineProperty(navigator, 'platform', {
                 get: function () {
                     window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'platform', eventValue: '${data.platform}' } }));
@@ -49,7 +52,17 @@
             };
 
             // Add more properties as needed
+
         `;
+
+        if (settings?.canvasDisabled) {
+            scriptContent += `
+                HTMLCanvasElement.prototype.getContext = function () {};
+            `;
+        }
+
+        script.textContent = scriptContent;
+
         (document.head || document.documentElement).appendChild(script);
         script.remove();
     }
