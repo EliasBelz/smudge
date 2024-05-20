@@ -19,7 +19,7 @@ import {getUserAgent} from "../scripts/userAgent.service.js";
         settingsService = new SettingsService();
         blacklistService = new BlacklistService();
 
-        await loadCheckbox();
+        await loadEnabledCheckbox();
 
         await loadCanvasCheckbox();
 
@@ -34,18 +34,20 @@ import {getUserAgent} from "../scripts/userAgent.service.js";
         loadRandomButton();
     });
 
-    // Load and update on the popup the settings for the 'on' checkbox.
-    async function loadCheckbox() {
+    // Load and update on the popup the settings for the 'enabled' checkbox.
+    async function loadEnabledCheckbox() {
         const hasSettings = await settingsService.hasSettings();
         if (!hasSettings) {
-            await settingsService.setSettings({ enabled: true });
+            await settingsService.setSettings({ enabled: false });
         }
+
         const { enabled } = await settingsService.getSettings();
 
         const enabledEl = document.querySelector('#enabled');
         enabledEl.checked = enabled;
+
         enabledEl.addEventListener('change', async function () {
-            await settingsService.setSettings({ enabled: this.checked });
+            await settingsService.updateSettings('enabled', this.checked);
         });
     }
 
