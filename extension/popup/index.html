@@ -15,8 +15,16 @@
 <body>
     <h1>Smudge</h1>
     <article id="settings">
-        <input type="checkbox" id="enabled" name="enabled" />
-        <label for="enabled">Smudge Enabled</label>
+        <section id="checkboxes">
+            <div>
+                <input type="checkbox" id="enabled" name="enabled" />
+                <label for="enabled">Smudge Enabled</label>
+            </div>
+            <div>
+                <input type="checkbox" id="canvasDisabled" name="canvasDisabled">
+                <label for="canvasDisabled">Disable Canvas</label>
+            </div>
+        </section>
         <section id="dropdowns"></section>
         <button id="commit">Save & Reload</button>
     </article>

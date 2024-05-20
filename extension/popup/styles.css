@@ -32,3 +32,6 @@ select option {
   max-width: 350px;
 }
 
+#checkboxes > div {
+  display: flex;
+}
