@@ -15,7 +15,10 @@ body {
   text-align: left;
 }
 
-h1 {
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 0.5rem;
 }
 
@@ -36,6 +39,11 @@ div > select {
 
 select option {
   max-width: 350px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
 }
 
 button {

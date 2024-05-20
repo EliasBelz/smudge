@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+    rel="stylesheet">
+    <link href="faq.css" rel="stylesheet">
+    <title>Smudge FAQ</title>
+  </head>
+  <body>
+    <header>
+      <h1>Smudge FAQ</h1>
+    </header>
+    <main>
+      <article>
+        <h2>Why Smudge?</h2>
+        <p>
+          Many modern websites have implemented a variety of trackers that collect data on users, 
+          allowing for cross-site identification through this digital "fingerprint". Smudge can help 
+          users distort their online fingerprint. While a tool like PrivacyBadger blocks the 
+          trackers themselves, the idea here is to essentially “poison” the datasets being 
+          used to identify someone in the first place, by randomly changing/falsifying the 
+          data points (like user agent or screen size). Since those using the plugin/extension 
+          will appear to have different browsing data each time they visit a website, it will 
+          make it more difficult to positively identify a user through these somewhat underhanded 
+          means, and in a way devalue the information that is being sold in the first place. 
+        </p>
+      </article>
+      <article>
+        <h2>What Smudge Is (and Isn't) Doing For You</h2>
+        <p>
+          Smudge seeks to do the following for its users:
+        </p>
+        <ul>
+          <li>
+            Conceal Attributes. Hide the true HTTP header and Javascript attributes of users
+            connecting to any website.
+          </li>
+          <li>
+            Create a simple, quick way for users to obscure their browsing data. We want the
+            application we build to be accessible to a wide spectrum of users, including those
+            who aren't familiar with web technologies. 
+          </li>
+          <li>
+            Allow users some level of control. Users should be able to change some of the spoofed
+            data themselves, to ensure browsing functionality is not impeded. As well as choosing
+            what websites to not change their fingerprints on.
+          </li>
+        </ul>
+        <p>
+          However, Smudge <em>isn't</em>:
+        </p>
+        <ul>
+          <li>
+            Able to run on every web browser. We intend to implement this on Firefox.
+            We do not plan to implement this for every web browser.
+          </li>
+          <li>
+            A sandbox environment. Smudge runs locally and will not protect users from
+            dangerous files or websites they encounter through some kind of virtualized
+            environment.
+          </li>
+          <li>
+            Able to run on mobile devices. We intend to implement this OS-agnostic on 
+            desktop, but will not support mobile devices.
+          </li>
+          <li>
+            An ad blocker. While we might change outgoing request data going to
+            an advertiser, we are not blocking ads.
+          </li>
+        </ul>
+      </article>
+      <article>
+      <h2>What Smudge Is (and Isn't) Protecting You From</h2>
+        <p>
+          Smudge's security goals include the following:
+        </p>
+        <ul>
+          <li>
+            Anonymity. Our extension should provide the user with a level of anonymity,
+            such that their message cannot be linked to them in a larger dataset.
+          </li>
+          <li>
+            Efficacy of Fingerprinting as a whole. We also aim to poison the larger space of
+            fingerprinting datasets as a whole, to discourage the practice as well as make it
+            less effective.
+          </li>
+        </ul>
+        <p>
+          However, these goals <em>do not</em> include:
+        </p> 
+        <ul>
+          <li>
+            Thwarting Mobile fingerprinting. We will not be attempting to extend
+            our implementation to include mobile fingerprinting which is based on
+            applications a user has installed.
+          </li>
+          <li>
+            Performing encryption. We don't attempt to encrypt or otherwise alter user data;
+            rather, we change metadata only.
+          </li>
+          <li>
+            Disabling trackers. We are not protecting users from seeing ads, just
+            preventing the ads from reasonably identifying users.
+          </li>
+          <li>
+            Altering software. We are not actually changing any of the software, downloaded fonts,
+            or other features of a user's browsing data--only spoofing them.
+          </li>
+        </ul>
+      </article>
+      <article>
+        <h2>Permissions Smudge Uses</h2>
+        <p>
+          You might have noticed that Smudge requests to read and change data on
+          all the sites you visit. Scary! However, Smudge isn't actually storing
+          any of the data it comes across while you browse. It needs these permissions
+          in order to compare the information being requested by trackers as you browse
+          to the presets Smudge uses to hide your identity, then send back that false
+          information instead of your real data.
+        </p>
+      </article>
+      <article>
+        <h2>I Installed Smudge. Now What?</h2>
+        <p>
+          Smudge isn't a universal band-aid--it still requires users to be thoughtful
+          about their browsing habits and data trail. You can find details specifically
+          addressing what Smudge is <em>not</em> above, but it's also important
+          to note that Smudge is an extension in beta, and thus not entirely polished.
+          One important rough edge is that users must periodically clear their cookies
+          in order to ensure that Smudged attributes are being changed regularly and 
+          not stored in the cache--as you should be doing anyway! In order to take 
+          full advantage of Smudge's features, please delete your cookies often.
+        </p>
+      </article>
+    </main>
+    <footer>
+      <p>Created by Elias Belzberg, Kathryn Koehler, Will Safranek, and Lucas Youngers</p>
+      <p>University of Washington Paul Allen School for Computer Science and Engineering</p>
+      <p>CSE 481s Security Capstone, Spring 2024</p>
+    </footer>
+  </body>
+</html>
