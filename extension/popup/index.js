@@ -1,5 +1,6 @@
 'use strict';
-import { getUserAgent } from "../scripts/userAgent.service.js";
+import {getUserAgent} from "../scripts/userAgent.service.js";
+
 (function () {
 
     /**
@@ -29,6 +30,8 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
         await loadBlacklistCheckBox();
 
         loadCommitButton();
+
+        loadRandomButton();
     });
 
     // Load and update on the popup the settings for the 'on' checkbox.
@@ -77,10 +80,11 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
               }
             });
             const userVal = navigator[key];
+
             if (navigator[key]) {
                 const opt = document.createElement('option');
                 opt.value = userVal;
-                opt.textContent = 'Default: ' + navigator[key];
+                opt.textContent = 'Default: ' + userVal;
                 selectEl.appendChild(opt);
             }
 
@@ -120,7 +124,9 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
         selectEl.id = 'timezone';
         selectEl.addEventListener('change', async function () {
             await settingsService.updateSettings('timezoneOffset', this.value);
-            await settingsService.updateSettings('timezone', this.options[this.selectedIndex].text);
+            let removedDefault = (this.options[this.selectedIndex].textContent).split(':');
+            removedDefault = removedDefault[1] ? removedDefault[1] : removedDefault[0];
+            await settingsService.updateSettings('timezone', removedDefault.trim());
         });
 
         // Set create user default
@@ -180,6 +186,32 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
         commitBtn.addEventListener('click', function () {
             browser.tabs.reload();
         });
+    }
+
+    function loadRandomButton() {
+        const randomBtn = document.getElementById('randomize');
+        randomBtn.addEventListener('click', async function () {
+            const dropdowns = document.querySelectorAll('#dropdowns select');
+            for (let i = 0; i < dropdowns.length; i++) {
+                let selectEl = dropdowns[i];
+                const randomIndex = Math.floor(Math.random() * selectEl.options.length);
+                selectEl.selectedIndex = randomIndex;
+                let key = selectEl.id;
+                let option = selectEl.options[randomIndex];
+                if (key === 'timezone'){
+                    let removedDefault = (option.textContent).split(':');
+                    removedDefault = removedDefault[1] ? removedDefault[1] : removedDefault[0];
+                    await settingsService.updateSettings('timezone', removedDefault.trim());
+                    //await settingsService.updateSettings('timezone',option.textContent);
+                    await settingsService.updateSettings('timezoneOffset',option.value);
+                } else {
+                    await settingsService.updateSettings(key, option.value);
+                }
+
+            }
+
+        });
+
     }
 
 })();
