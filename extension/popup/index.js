@@ -9,11 +9,14 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
      */
     let settingsService;
 
+    let blacklistService;
+
     // Load the saved settings, and check the box in the UI appropriately.
     // If there are no saved settings, save minimal base settings.
     // Then, load the options from json.
     window.addEventListener('load', async function () {
         settingsService = new SettingsService();
+        blacklistService = new BlacklistService();
 
         await loadCheckbox();
 
@@ -22,6 +25,8 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
         await loadOptions();
 
         await loadTimezoneDropdown();
+
+        await loadBlacklistCheckBox();
 
         loadCommitButton();
     });
@@ -155,6 +160,18 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
         div.appendChild(label);
         div.appendChild(selectEl);
         document.querySelector('#dropdowns').appendChild(div);
+    }
+
+    async function loadBlacklistCheckBox() {
+        const blacklistCb = document.getElementById('blacklist');
+
+        blacklistCb.checked = await blacklistService.isBlacklisted();
+
+        blacklistCb.addEventListener('click', async function () {
+            await blacklistService.toggleBlacklist();
+            blacklistCb.checked = await blacklistService.isBlacklisted();
+        });
+
     }
 
 
