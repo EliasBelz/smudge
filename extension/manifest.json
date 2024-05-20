@@ -23,7 +23,8 @@
                 "scripts/navigator.service.js",
                 "scripts/canvas.service.js",
                 "scripts/webgl.service.js",
-                "scripts/tracking.service.js"
+                "scripts/tracking.service.js",
+                "scripts/blacklist.service.js"
             ],
             "run_at": "document_start"
         }

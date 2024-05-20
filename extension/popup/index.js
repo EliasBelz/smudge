@@ -17,6 +17,8 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
 
         await loadCheckbox();
 
+        await loadCanvasCheckbox();
+
         await loadOptions();
 
         await loadTimezoneDropdown();
@@ -38,6 +40,16 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
             await settingsService.setSettings({ enabled: this.checked });
         });
     }
+
+    async function loadCanvasCheckbox() {
+        const { canvasDisabled } = await settingsService.getSettings();
+        const canvasDisabledEl = document.getElementById('canvasDisabled');
+        canvasDisabledEl.checked = canvasDisabled;
+        canvasDisabledEl.addEventListener('change', async function () {
+            await settingsService.updateSettings('canvasDisabled', this.checked);
+        });
+    }
+
 
     // Load and update on the popup the options dropdowns.
     async function loadOptions() {
@@ -145,19 +157,12 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
         document.querySelector('#dropdowns').appendChild(div);
     }
 
-    async function loadBlacklistButton() {
-        const blacklistBtn = document.getElementById('blacklist');
+    async function loadBlacklistCheckBox() {
+        const blacklistCb = document.getElementById('blacklist');
         let {blacklist} = await settingsService.getSettings();
-        if (!blacklist) {
-            blacklist = [];
-            await settingsService.updateSettings('blacklist', blacklist);
-        }
 
-        if (blacklist.some(url => url === window.location.href)) {
-            blacklistBtn.textContent = 'Stop Smudging This Site';
-        } else {
-            blacklistBtn.textContent = 'Smudge This Site';
-        }
+
+        blacklistCb.checked = blacklist;
 
 
 
@@ -173,6 +178,7 @@ import { getUserAgent } from "../scripts/userAgent.service.js";
         });
 
     }
+
 
     function loadCommitButton() {
         const commitBtn = document.getElementById('commit');
