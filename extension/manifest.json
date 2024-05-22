@@ -11,8 +11,9 @@
         "tabs"
     ],
     "background": {
-        "scripts": ["scripts/headers.service.js",
-                    "scripts/settings.service.js"],
+        "scripts": ["scripts/background/headers.service.js",
+                    "scripts/background/settings.service.js",
+                    "scripts/background/blacklist.service.js"],
         "persistent": true
     },
     "content_scripts": [
@@ -21,11 +22,8 @@
                 "<all_urls>"
             ],
             "js": [
-                "scripts/navigator.service.js",
-                "scripts/canvas.service.js",
-                "scripts/webgl.service.js",
-                "scripts/tracking.service.js",
-                "scripts/blacklist.service.js"
+                "scripts/content/navigator.service.js",
+                "scripts/content/tracking.service.js"
             ],
             "run_at": "document_start"
         }

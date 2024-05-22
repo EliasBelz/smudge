@@ -1,14 +1,14 @@
 "use strict";
 (async function () {
+    const script = document.createElement('script');
     const jsonFileUrl = browser.extension.getURL('assets/navigator.json');
     const res = await fetch(jsonFileUrl);
     const data = await res.json();
 
     const { settings } = (await browser.storage.local.get('settings'));
-    const isBlackListed = (await browser.storage.local.get('blacklist'))?.blacklist?.includes(await getHostName());
+    const isBlackListed = await browser.runtime.sendMessage({ command: 'isBlacklisted' });
 
     if (settings?.enabled && !isBlackListed) {
-        const script = document.createElement('script');
         const {
             platform,
             userAgent,
@@ -66,6 +66,8 @@
         script.textContent = scriptContent;
 
         (document.head || document.documentElement).appendChild(script);
+
+
         script.remove();
     }
 
