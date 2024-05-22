@@ -78,7 +78,9 @@ import {getUserAgent} from "../scripts/userAgent.service.js";
                   await settingsService.updateSettings('userAgent', userAgent);
               }
             });
-            const userVal = navigator[key];
+
+            // Create a default option for the user's current browser or nav property
+            const userVal = key === 'browser' ? 'Firefox' : navigator[key];
 
             if (navigator[key]) {
                 const opt = document.createElement('option');
@@ -203,7 +205,6 @@ import {getUserAgent} from "../scripts/userAgent.service.js";
                     let removedDefault = (option.textContent).split(':');
                     removedDefault = removedDefault[1] ? removedDefault[1] : removedDefault[0];
                     await settingsService.updateSettings('timezone', removedDefault.trim());
-                    //await settingsService.updateSettings('timezone',option.textContent);
                     await settingsService.updateSettings('timezoneOffset',option.value);
                 } else {
                     await settingsService.updateSettings(key, option.value);
