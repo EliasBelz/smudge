@@ -28,7 +28,7 @@ async function getHostName() {
     }
     return host;
   } catch (error) {
-    console.log('error', error);
+    console.error('error', error);
     return null
   }
 }
@@ -76,7 +76,6 @@ async function removeBlacklist() {
  * Toggles the current host name in the blacklist
  */
 async function toggleBlacklist() {
-  console.log('toggleBlacklist');
   if (await isBlacklisted()) {
     await removeBlacklist();
   } else {
@@ -89,10 +88,8 @@ async function toggleBlacklist() {
  */
 browser.runtime.onMessage.addListener(async (message) => {
   if (message.command === "toggleBlacklist") {
-    console.log('toggleBlacklist');
     await toggleBlacklist();
   } else if (message.command === "isBlacklisted") {
-    console.log('isBlacklisted');
     return await isBlacklisted();
   } else if (message.command === "getBlacklist") {
     return await getBlacklist();
