@@ -82,18 +82,21 @@ a {
 #dropdowns div {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  row-gap: 0.5em;
 }
 
 #dropdowns label {
-  margin-right: 0.5em;
+  flex-grow: 1;
 }
 
 #dropdowns select {
-  width: 100%;
-  flex-grow: 1;
+  max-width: 65%;
+  flex-grow: 10;
   padding: 0.3em;
   border-radius: 0.3em;
   cursor: pointer;
+  overflow-x: hidden;
 }
 
 #dropdowns select option {
