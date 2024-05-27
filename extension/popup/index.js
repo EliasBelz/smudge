@@ -29,6 +29,8 @@ import {getUserAgent} from "../scripts/userAgent.service.js";
         loadCommitButton();
 
         loadRandomButton();
+
+        await generateUserAgent();
     });
 
     // Load and update on the popup the settings for the 'enabled' checkbox.
@@ -45,6 +47,7 @@ import {getUserAgent} from "../scripts/userAgent.service.js";
 
         enabledEl.addEventListener('change', async function () {
             await settingsService.updateSettings('enabled', this.checked);
+            await generateUserAgent();
         });
     }
 
@@ -71,12 +74,10 @@ import {getUserAgent} from "../scripts/userAgent.service.js";
             // updates the settings when the dropdown is changed.
             // if the platform or browser is changed, the user agent is updated.
             selectEl.addEventListener('change', async function () {
-              await settingsService.updateSettings(key, this.value);
-              if (key === 'platform' || key === 'browser') {
-                  const { platform, browser } = await settingsService.getSettings();
-                  const userAgent = getUserAgent({ platform, browser });
-                  await settingsService.updateSettings('userAgent', userAgent);
-              }
+                await settingsService.updateSettings(key, this.value);
+                if (key === 'platform' || key === 'browser') {
+                    await generateUserAgent();
+                }
             });
 
             // Create a default option for the user's current browser or nav property
@@ -178,7 +179,6 @@ import {getUserAgent} from "../scripts/userAgent.service.js";
         blacklistCb.addEventListener('click', async function () {
             await toggleBlacklist();
             blacklistCb.checked = await isBlacklisted();
-            console.log('index toggled bl', blacklistCb.checked);
         });
 
     }
@@ -209,11 +209,15 @@ import {getUserAgent} from "../scripts/userAgent.service.js";
                 } else {
                     await settingsService.updateSettings(key, option.value);
                 }
-
             }
-
+            await generateUserAgent();
         });
+    }
 
+    async function generateUserAgent() {
+        const { platform, browser } = await settingsService.getSettings();
+        const userAgent = getUserAgent({ platform, browser });
+        await settingsService.updateSettings('userAgent', userAgent);
     }
 
 })();
