@@ -7,7 +7,7 @@
     });
 
     async function trackEvent(eventName, eventValue) {
-        console.log('TrackEvent', eventName, eventValue);
+        ('TrackEvent', eventName, eventValue);
 
         const data = await browser.storage.local.get('eventTrackingData');
 
