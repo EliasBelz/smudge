@@ -65,7 +65,7 @@ import {getUserAgent} from "../scripts/userAgent.service.js";
         const data = await res.json();
 
         for (let key of Object.keys(data)) {
-            const options = data[key];
+            const { name, options } = data[key];
             const selectEl = document.createElement('select');
             selectEl.id = key;
             // updates the settings when the dropdown is changed.
@@ -107,7 +107,7 @@ import {getUserAgent} from "../scripts/userAgent.service.js";
             }
 
             const label = document.createElement('label');
-            label.textContent = `${key}: `;
+            label.textContent = `${name}: `;
             label.htmlFor = key;
 
             const div = document.createElement('div');
