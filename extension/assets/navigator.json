@@ -1,23 +1,29 @@
 {
-  "platform": [
-    "Linux",
-    "Macintosh",
-    "Windows",
-    "New Nintendo 3DS",
-    "Nintendo DSi",
-    "Nintendo 3DS",
-    "Nintendo Wii",
-    "Nintendo WiiU",
-    "PLAYSTATION 3",
-    "PlayStation 4",
-    "X11",
-    "TempleOS"],
-
-    "browser" : [
+  "platform": {
+    "name": "Platform",
+    "options": [
+      "Linux",
+      "Macintosh",
+      "Windows",
+      "New Nintendo 3DS",
+      "Nintendo DSi",
+      "Nintendo 3DS",
+      "Nintendo Wii",
+      "Nintendo WiiU",
+      "PLAYSTATION 3",
+      "PlayStation 4",
+      "X11",
+      "TempleOS"
+    ]
+  },
+  "browser": {
+    "name": "Browser",
+    "options": [
       "Firefox",
       "Chrome",
       "Opera",
       "Microsoft Edge",
       "Safari"
     ]
+  }
 }
