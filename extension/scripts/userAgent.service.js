@@ -41,15 +41,15 @@ function getSystemInfo(platform) {
 function getBrowserInfo(browser) {
   switch (browser) {
     case 'Chrome':
-      return 'AppleWebKit/537.36 AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36';
+      return 'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.3';
     case 'Firefox':
-      return 'Gecko/20100101 Firefox/68.0';
+      return 'Gecko/20100101 Firefox/126.0';
     case 'Opera':
-      return 'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.106 Safari/537.36 OPR/38.0.2220.41';
+      return 'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36 OPR/110.0.0.0';
     case 'Microsoft Edge':
-      return 'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Edg/91.0.864.59';
+      return 'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.';
     case 'Safari':
-      return 'AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15';
+      return 'AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15';
     default:
       return '';
   }
