@@ -41,7 +41,7 @@ function getSystemInfo(platform) {
 function getBrowserInfo(browser) {
   switch (browser) {
     case 'Chrome':
-      return 'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.3';
+      return 'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.3';
     case 'Firefox':
       return 'Gecko/20100101 Firefox/126.0';
     case 'Opera':
