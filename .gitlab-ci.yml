@@ -5,6 +5,7 @@
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Pages/HTML.gitlab-ci.yml
 
 # Full project: https://gitlab.com/pages/plain-html
+image: alpine:latest
 pages:
   stage: deploy
   environment: production
@@ -13,8 +14,11 @@ pages:
     - cp -r ./* .public
     - rm -rf public
     - mv .public public
+    - echo "Deploying..."
   artifacts:
     paths:
       - public
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  tags:
+    - Pages
+  only:
+    - please-deploy
