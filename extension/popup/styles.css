@@ -1,53 +1,24 @@
-body {
-  font-family: "Open Sans", sans-serif;
-  background-color: #17141d;
-  color: white;
-  width: 90%;
+:root {
+  --dark: #17141d;
+  --base: #201c29;
 }
 
-#settings {
-  overflow-x: hidden;
-  width: 100%;
-  padding: 0.5em;
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
 }
 
 body {
   text-align: left;
-}
-
-header {
+  background-color: white;
+  color: var(--base);
+  padding: 1em;
+  font-family: monospace;
+  font-size: 18px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem;
-}
-
-div {
-  width: 80%;
-  display: flex;
-  flex-direction: row;
-  margin-top: 1em;
-}
-
-div > {
-  padding: 5px;
-}
-
-div > select {
-  width: auto;
-}
-
-select option {
-  max-width: 350px;
-}
-
-a {
-  color: white;
-  text-decoration: none;
-}
-
-button {
-  margin-top: 1em;
+  flex-direction: column;
+  row-gap: 1em;
 }
 
 body::-webkit-scrollbar {
@@ -56,10 +27,92 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-thumb {
-  background: #201c29;
+  background: var(--base);
   border-radius: 10px;
 }
 
 body::-webkit-scrollbar-track {
-  background: linear-gradient(90deg,#201c29,#201c29 1px,#17141d 0,#17141d);
+  background: linear-gradient(90deg, var(--base), var(--base) 1px, var(--dark) 0, var(--dark));
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h1 {
+  border-bottom: 1px solid var(--base);
+  padding-bottom: 5px;
+}
+
+a {
+  color: var(--base);
+  text-decoration: none;
+}
+
+#settings {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em;
+  overflow-x: hidden;
+}
+
+#checkboxes {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5em;
+}
+
+#checkboxes div,
+#checkboxes div > * {
+  cursor: pointer;
+}
+
+#checkboxes input[type=checkbox] {
+  margin-right: 0.5em;
+}
+
+#dropdowns {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5em;
+}
+
+#dropdowns div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  row-gap: 0.5em;
+}
+
+#dropdowns label {
+  flex-grow: 1;
+}
+
+#dropdowns select {
+  max-width: 65%;
+  flex-grow: 10;
+  padding: 0.3em;
+  border-radius: 0.3em;
+  cursor: pointer;
+  overflow-x: hidden;
+}
+
+#dropdowns select option {
+  max-width: 350px;
+  cursor: pointer;
+}
+
+#buttons {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 1em;
+}
+
+#buttons button {
+  padding: 0.5em;
+  border-radius: 0.5em;
+  flex: 1;
+  cursor: pointer;
 }
