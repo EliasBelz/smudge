@@ -6,12 +6,8 @@
 
   async function init() {
     const blacklist = await getBlacklist();
-    console.log(blacklist);
 
-    const events = await getEventTrackingData();
-    console.log(events);
-
-
+    const events = await getEventTrackingData() || {};
 
     qs('body > button').addEventListener('click', async () => {
       await clearEventTrackingData();
@@ -23,7 +19,8 @@
     createSection('user-agent', events, 'userAgent');
     createSection('platform', events, 'platform');
     createSection('browser', events, 'browser');
-    createSection('timezone', events, 'timeZoneOffset');
+    createSection('timezone-offset', events, 'timeZoneOffset');
+    createSection('timezone', events, 'timeZone');
   }
 
 
@@ -46,7 +43,7 @@
       for (const host of DNSList) {
         const li = document.createElement('li');
         const a = document.createElement('a');
-        // TODO maybe remove this cuz not everythign is https
+        // TODO maybe remove this cuz not everything is https
         a.href = 'https://' + host;
         a.textContent = host;
         a.target = '_blank';
