@@ -1,10 +1,6 @@
 "use strict";
 (async function () {
     const script = document.createElement('script');
-    const jsonFileUrl = browser.extension.getURL('assets/navigator.json');
-    const res = await fetch(jsonFileUrl);
-    const data = await res.json();
-
     const { settings } = (await browser.storage.local.get('settings'));
     const isBlackListed = await browser.runtime.sendMessage({ command: 'isBlacklisted' });
 
@@ -13,8 +9,11 @@
             platform,
             userAgent,
             timezoneOffset,
-            timezone
+            timezone,
+            browser
         } = settings;
+        console.log('platform', platform);
+        console.log('userAgent', userAgent);
 
         const offsetHours = timezoneOffset / -60;
         const utcString = `UTC${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
@@ -24,7 +23,7 @@
         scriptContent += `
             Object.defineProperty(navigator, 'platform', {
                 get: function () {
-                    window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'platform', eventValue: '${data.platform}' } }));
+                    window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'platform', eventValue: '${platform}' } }));
                     return '${platform}';
                 }
             });
@@ -32,12 +31,14 @@
             Object.defineProperty(navigator, 'userAgent', {
                 get: function () {
                     window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'userAgent', eventValue: '${userAgent}' } }));
+                    window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'browser', eventValue: '${browser}' } }));
+                    window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'platform', eventValue: '${platform}' } }));
                     return '${userAgent}';
                 }
             });
 
             Date.prototype.getTimezoneOffset = function() {
-                window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'timezoneOffset', eventValue: '${timezoneOffset}, ${utcString}' } }));
+                window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'timeZone', eventValue: '${timezone}, (${utcString})' } }));
                 return ${timezoneOffset};
             }
 

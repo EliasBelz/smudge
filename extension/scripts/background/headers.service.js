@@ -6,6 +6,8 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
         if (!enabled || blacklist?.includes(await getHostName())) {
             return { requestHeaders: details.requestHeaders };
         }
+        //TODO make this tracking work
+        window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'userAgent (from header)', eventValue: userAgent} }));
         details.requestHeaders
             .filter(({ name }) => name === 'User-Agent')
             .forEach(header => header.value = userAgent);

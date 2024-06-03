@@ -27,3 +27,22 @@
     }
 
 })();
+
+async function getEventTrackingData() {
+    const data = await browser.storage.local.get('eventTrackingData');
+    return data?.eventTrackingData;
+}
+
+async function clearEventTrackingData() {
+    await browser.storage.local.remove('eventTrackingData');
+}
+
+async function clearCategoryEventTrackingData(category) {
+    const data = await browser.storage.local.get('eventTrackingData');
+    if (data.eventTrackingData) {
+        delete data.eventTrackingData[category];
+    } else {
+        data.eventTrackingData = {};
+    }
+    await browser.storage.local.set({ eventTrackingData: data.eventTrackingData });
+}

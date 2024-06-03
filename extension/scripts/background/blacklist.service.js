@@ -12,6 +12,14 @@ async function getBlacklist() {
 }
 
 /**
+ * Clears the blacklist
+ */
+async function clearBlacklist() {
+  await browser.storage.local.remove('blacklist');
+}
+
+
+/**
  * Gets the host name of the currently active tab
  */
 async function getHostName() {
@@ -82,6 +90,7 @@ async function toggleBlacklist() {
     await addBlacklist();
   }
 }
+
 
 /**
  * Listens for messages from content scripts
