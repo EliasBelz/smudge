@@ -22,8 +22,8 @@
         scriptContent += `
             Object.defineProperty(navigator, 'platform', {
                 get: function () {
-                    window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'platform', eventValue: '${platform} 1' } }));
-                    return '${platform} 1';
+                    window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'platform', eventValue: '${platform}' } }));
+                    return '${platform}';
                 }
             });
 
