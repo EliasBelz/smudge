@@ -23,7 +23,7 @@
     createSection('user-agent', events, 'userAgent');
     createSection('platform', events, 'platform');
     createSection('browser', events, 'browser');
-    createSection('timezone', events, 'timeZone');
+    createSection('timezone', events, 'timeZoneOffset');
   }
 
 

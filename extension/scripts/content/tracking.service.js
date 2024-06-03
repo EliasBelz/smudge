@@ -1,32 +1,45 @@
 'use strict';
 
-(function () {
+let queue = Promise.resolve();
 
-    window.addEventListener('trackEvent', async function (e) {
-        await trackEvent(e.detail.eventName, e.detail.eventValue);
-    });
+window.addEventListener('trackEvent', function (e) {
+    queueEvent(e.detail.eventName, e.detail.eventValue);
+});
 
-    async function trackEvent(eventName, eventValue) {
-        const data = await browser.storage.local.get('eventTrackingData');
+window.addEventListener('trackUserAgent', function (e) {
+    // Assuming trackUserAgent is defined somewhere else
+    queueEvent(trackUserAgent);
+});
 
-        if (!data.eventTrackingData) {
-            data.eventTrackingData = {};
-        }
+window.addEventListener('trackMultipleEvents', function (e) {
+    for (const event of e.detail) {
+        queueEvent(event.eventName, event.eventValue);
+    }
+});
 
-        if (!data.eventTrackingData[eventName]) {
-            data.eventTrackingData[eventName] = {};
-        }
+function queueEvent(eventName, eventValue) {
+    queue = queue.then(() => trackEvent(eventName, eventValue)).catch(console.error);
+}
 
-        if (!data.eventTrackingData[eventName][eventValue]) {
-            data.eventTrackingData[eventName][eventValue] = 0;
-        }
+async function trackEvent(eventName, eventValue) {
+    const data = await browser.storage.local.get('eventTrackingData');
 
-        data.eventTrackingData[eventName][eventValue] += 1;
-
-        await browser.storage.local.set({ eventTrackingData: data.eventTrackingData });
+    if (!data.eventTrackingData) {
+        data.eventTrackingData = {};
     }
 
-})();
+    if (!data.eventTrackingData[eventName]) {
+        data.eventTrackingData[eventName] = {};
+    }
+
+    if (!data.eventTrackingData[eventName][eventValue]) {
+        data.eventTrackingData[eventName][eventValue] = 0;
+    }
+
+    data.eventTrackingData[eventName][eventValue] += 1;
+
+    await browser.storage.local.set({ eventTrackingData: data.eventTrackingData });
+}
 
 async function getEventTrackingData() {
     const data = await browser.storage.local.get('eventTrackingData');

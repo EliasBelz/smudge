@@ -19,26 +19,26 @@
         const utcString = `UTC${offsetHours >= 0 ? '+' : ''}${offsetHours}`;
 
         let scriptContent = '';
-
         scriptContent += `
             Object.defineProperty(navigator, 'platform', {
                 get: function () {
-                    window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'platform', eventValue: '${platform}' } }));
-                    return '${platform}';
+                    window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'platform', eventValue: '${platform} 1' } }));
+                    return '${platform} 1';
                 }
             });
 
             Object.defineProperty(navigator, 'userAgent', {
                 get: function () {
-                    window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'userAgent', eventValue: '${userAgent}' } }));
-                    window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'browser', eventValue: '${browser}' } }));
-                    window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'platform', eventValue: '${platform}' } }));
+                    window.dispatchEvent(new CustomEvent('trackMultipleEvents', { detail: [
+                            { eventName: 'userAgent', eventValue: '${userAgent}' },
+                            { eventName: 'browser', eventValue: '${browser}' },
+                            { eventName: 'platform', eventValue: '${platform}' }]}));
                     return '${userAgent}';
                 }
             });
 
             Date.prototype.getTimezoneOffset = function() {
-                window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'timeZone', eventValue: '${timezone}, (${utcString})' } }));
+                window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'timeZoneOffset', eventValue: '${timezoneOffset}, (${utcString})' } }));
                 return ${timezoneOffset};
             }
 
@@ -47,7 +47,7 @@
                 const options = originalResolvedOptions.call(this);
                 Object.defineProperty(options, 'timeZone', {
                     get: function () {
-                        window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'timezone', eventValue: '${timezone}' } }));
+                        window.dispatchEvent(new CustomEvent('trackEvent', { detail: { eventName: 'timeZone', eventValue: '${timezone}' } }));
                         return '${timezone}';
                     }
                 });
