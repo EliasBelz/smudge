@@ -52,6 +52,13 @@ article p, li {
   line-height: 170%;
 }
 
+a {
+  color: white;
+}
+
+a:visited {
+  color: white;
+}
 
 footer {
   display: flex;
