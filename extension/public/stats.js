@@ -5,11 +5,9 @@
   window.addEventListener('load', init);
 
   async function init() {
-    const blacklist = await getBlacklist();
-
     const events = await getEventTrackingData() || {};
 
-    qs('body > button').addEventListener('click', async () => {
+    qs('main > button').addEventListener('click', async () => {
       await clearEventTrackingData();
       window.location.reload();
     });
