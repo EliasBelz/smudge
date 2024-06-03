@@ -4,10 +4,7 @@
 
     window.addEventListener('load', init);
 
-    console.log(`client ${navigator.userAgent}`);
-
     function init() {
-        console.log(`client in inti ${navigator.userAgent}`);
         qs('button').addEventListener('click', async () => { await fingerPrint() });
         id('uab').addEventListener('click', userAgentAlert);
     }
