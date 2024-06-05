@@ -1,14 +1,14 @@
 [
   {
-    "timeZone": "Etc/GMT+12",
+    "timeZone": "Pacific/Wake",
     "offset": -720
   },
   {
-    "timeZone": "Etc/GMT+11",
+    "timeZone": "Pacific/Midway",
     "offset": -660
   },
   {
-    "timeZone": "Etc/GMT+10",
+    "timeZone": "Pacific/Honolulu",
     "offset": -600
   },
   {
@@ -20,27 +20,27 @@
     "offset": -540
   },
   {
-    "timeZone": "America/Anchorage",
+    "timeZone": "America/Los_Angeles",
     "offset": -480
   },
   {
-    "timeZone": "America/Creston",
+    "timeZone": "America/Phoenix",
     "offset": -420
   },
   {
-    "timeZone": "America/Bahia_Banderas",
+    "timeZone": "America/Mexico_City",
     "offset": -360
   },
   {
-    "timeZone": "America/Atikokan",
+    "timeZone": "America/Toronto",
     "offset": -300
   },
   {
-    "timeZone": "America/Anguilla",
+    "timeZone": "America/New_York",
     "offset": -240
   },
   {
-    "timeZone": "America/Araguaina",
+    "timeZone": "America/Sao_Paulo",
     "offset": -180
   },
   {
@@ -56,19 +56,19 @@
     "offset": -60
   },
   {
-    "timeZone": "Africa/Abidjan",
+    "timeZone": "Europe/Lisbon",
     "offset": 0
   },
   {
-    "timeZone": "Africa/Algiers",
+    "timeZone": "Europe/Paris",
     "offset": 60
   },
   {
-    "timeZone": "Africa/Blantyre",
+    "timeZone": "Europe/Berlin",
     "offset": 120
   },
   {
-    "timeZone": "Africa/Addis_Ababa",
+    "timeZone": "Europe/Moscow",
     "offset": 180
   },
   {
@@ -140,15 +140,15 @@
     "offset": 720
   },
   {
-    "timeZone": "NZ-CHAT",
+    "timeZone": "Pacific/Chatham",
     "offset": 765
   },
   {
-    "timeZone": "Etc/GMT-13",
+    "timeZone": "Pacific/Apia",
     "offset": 780
   },
   {
-    "timeZone": "Etc/GMT-14",
+    "timeZone": "Pacific/Kiritimati",
     "offset": 840
   }
 ]
